@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Calculo retiro 10% AFP</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="application/javascript">
+		function UserAction() {
+				document.getElementById("resultado").style.visibility = "hidden";
+				var inputSueldo=document.getElementById('inputSueldo').value;
+				var inputAhorro=document.getElementById('inputAhorro').value;
+
+				if(!inputSueldo || !inputAhorro){
+					alert("Debe completar los datos del formulario");
+					return;
+				}
+
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+						 if (this.readyState == 4 && this.status == 200) {
+								 var myObj = JSON.parse(this.responseText);
+									document.getElementById("dxc").innerHTML = myObj.dxc;
+									document.getElementById("saldo").innerHTML = myObj.saldo;
+									document.getElementById("impuesto").innerHTML = myObj.impuesto;
+									document.getElementById("sueldo").innerHTML = myObj.sueldo;
+									document.getElementById("ahorro").innerHTML = myObj.ahorro;
+							 		document.getElementById("resultado").style.visibility = "visible";
+						 }
+				};
+				xhttp.open("GET", "http://localhost:8889/rest/msdxc/dxc?sueldo="+inputSueldo+"&ahorro="+inputAhorro, true);
+				xhttp.setRequestHeader("Content-type", "application/json");
+				xhttp.send();
+		}
+	</script>
+</head>
+<body>
+<div class="container">
+    <h1>Calculo retiro 10% AFP</h1>
+    <div class="form-group">
+        <label for="sueldo">Ingrese su sueldo</label>
+        <input class="form-control" id="inputSueldo">
+    </div>
+    <div class="form-group">
+        <label for="ahorro">Ingrese su ahorro</label>
+        <input class="form-control" id="inputAhorro">
+    </div>
+    <button type="submit" name="button" id="button" onclick="UserAction()" class="btn btn-primary">Enviar</button>
+    <div id="resultado" style="visibility: hidden">
+        <hr/>
+        <h3>Resultado</h3>
+        <p><strong>10%:</strong> <span id="dxc"></span></p>
+        <p><strong>Saldo:</strong> <span id="saldo"></span></p>
+        <p><strong>Impuesto:</strong> <span id="impuesto"></span></p>
+        <p><strong>Sueldo:</strong> <span id="sueldo"></span></p>
+        <p><strong>Ahorro:</strong> <span id="ahorro"></span></p>
+        <hr/>
+    </div>
+</div>
+</body>
+</html>
