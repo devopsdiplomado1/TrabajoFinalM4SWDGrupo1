@@ -1,0 +1,895 @@
+{
+	"info": {
+		"_postman_id": "e0f99d44-14f2-4a38-8b05-5e62ab3df69c",
+		"name": "taller_modulo_4_grupo1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "casoNegocio1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"const sueldo        =   pm.environment.get(\"sueldo_var\");",
+							"const ahorro        =   pm.environment.get(\"ahorro_var\");",
+							"const dxcEsperado   =   pm.environment.get(\"dxcEsperado\");",
+							"const imptoEsperado =   pm.environment.get(\"imptoEsperado\");",
+							"const saldoEsperado =   pm.environment.get(\"saldoEsperado\");",
+							"",
+							"    pm.test(\"0.-Status code es 200\", () => {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"",
+							"    pm.test(\"1.-Tiempo de respuesta: is less than 1500ms\", () => {",
+							"        pm.expect(pm.response.responseTime).to.be.below(1500);",
+							"    });",
+							"",
+							"    pm.test(\"2.-Contiene informacion del diez por ciento(dxc)\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"dxc\");",
+							"    });",
+							"",
+							"    pm.test(\"3.-Contiene informacion del saldo\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"saldo\");",
+							"    });",
+							"",
+							"    pm.test(\"4.-Contiene informacion del impuesto\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"impuesto\");",
+							"    });    ",
+							"",
+							"    pm.test(\"5.-el 10 porciento del monto ahorrado:\"+ahorro+\" debe ser:\"+dxcEsperado, () => {",
+							"        pm.expect(pm.response.json().dxc).to.eql(dxcEsperado);",
+							"    });",
+							"",
+							"    pm.test(\"6.-el impuesto del sueldo:\"+sueldo+\" debe ser:\"+imptoEsperado, () => {",
+							"        pm.expect(pm.response.json().impuesto).to.eql(imptoEsperado);",
+							"    });",
+							"",
+							"    pm.test(\"7.-el saldo resultante, del sueldo:\"+sueldo+\" y ahorro de:\"+ahorro+\" debe ser:\"+saldoEsperado, () => {",
+							"        pm.expect(pm.response.json().saldo).to.eql(saldoEsperado);",
+							"    });",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\"https://mindicador.cl/api\", function (err, response) {",
+							"    responseJsonUf = response.json();",
+							"    uf = parseInt(responseJsonUf.uf.valor);",
+							"",
+							"    sueldo1          = 1499999;",
+							"    imptoEsperado1   = 0;",
+							"        ",
+							"    ahorro1          = parseInt(uf*35-1);",
+							"    dxcEsperado1     = parseInt(uf*35-1);",
+							"    saldoEsperado1   = ahorro1 - dxcEsperado1;",
+							"",
+							"    pm.environment.set(\"sueldo_var\", sueldo1);",
+							"    pm.environment.set(\"ahorro_var\", ahorro1);",
+							"    pm.environment.set(\"dxcEsperado\", dxcEsperado1);",
+							"    pm.environment.set(\"imptoEsperado\", imptoEsperado1);",
+							"    pm.environment.set(\"saldoEsperado\", saldoEsperado1);",
+							"",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8889/rest/msdxc/dxc?sueldo={{sueldo_var}}&ahorro={{ahorro_var}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8889",
+					"path": [
+						"rest",
+						"msdxc",
+						"dxc"
+					],
+					"query": [
+						{
+							"key": "sueldo",
+							"value": "{{sueldo_var}}"
+						},
+						{
+							"key": "ahorro",
+							"value": "{{ahorro_var}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "casoNegocio2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"const sueldo        =   pm.environment.get(\"sueldo_var\");",
+							"const ahorro        =   pm.environment.get(\"ahorro_var\");",
+							"const dxcEsperado   =   pm.environment.get(\"dxcEsperado\");",
+							"const imptoEsperado =   pm.environment.get(\"imptoEsperado\");",
+							"const saldoEsperado =   pm.environment.get(\"saldoEsperado\");",
+							"",
+							"    pm.test(\"0.-Status code es 200\", () => {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"",
+							"    pm.test(\"1.-Tiempo de respuesta: is less than 1500ms\", () => {",
+							"        pm.expect(pm.response.responseTime).to.be.below(1500);",
+							"    });",
+							"",
+							"    pm.test(\"2.-Contiene informacion del diez por ciento(dxc)\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"dxc\");",
+							"    });",
+							"",
+							"    pm.test(\"3.-Contiene informacion del saldo\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"saldo\");",
+							"    });",
+							"",
+							"    pm.test(\"4.-Contiene informacion del impuesto\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"impuesto\");",
+							"    });    ",
+							"",
+							"    pm.test(\"5.-el 10 porciento del monto ahorrado:\"+ahorro+\" debe ser:\"+dxcEsperado, () => {",
+							"        pm.expect(pm.response.json().dxc).to.eql(dxcEsperado);",
+							"    });",
+							"",
+							"    pm.test(\"6.-el impuesto del sueldo:\"+sueldo+\" debe ser:\"+imptoEsperado, () => {",
+							"        pm.expect(pm.response.json().impuesto).to.eql(imptoEsperado);",
+							"    });",
+							"",
+							"    pm.test(\"7.-el saldo resultante, del sueldo:\"+sueldo+\" y ahorro de:\"+ahorro+\" debe ser:\"+saldoEsperado, () => {",
+							"        pm.expect(pm.response.json().saldo).to.eql(saldoEsperado);",
+							"    });",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\"https://mindicador.cl/api\", function (err, response) {",
+							"    responseJsonUf = response.json();",
+							"    uf = parseInt(responseJsonUf.uf.valor);",
+							"",
+							"    sueldo1          = 1500000;",
+							"    imptoEsperado1   = 174531;",
+							"",
+							"    ahorro1          = parseInt(uf*35);",
+							"    dxcEsperado1     = parseInt(uf*35);",
+							"    saldoEsperado1   = ahorro1 - dxcEsperado1;",
+							"",
+							"    pm.environment.set(\"sueldo_var\", sueldo1);",
+							"    pm.environment.set(\"ahorro_var\", ahorro1);",
+							"    pm.environment.set(\"dxcEsperado\", dxcEsperado1);",
+							"    pm.environment.set(\"imptoEsperado\", imptoEsperado1);",
+							"    pm.environment.set(\"saldoEsperado\", saldoEsperado1);",
+							"",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8889/rest/msdxc/dxc?sueldo={{sueldo_var}}&ahorro={{ahorro_var}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8889",
+					"path": [
+						"rest",
+						"msdxc",
+						"dxc"
+					],
+					"query": [
+						{
+							"key": "sueldo",
+							"value": "{{sueldo_var}}"
+						},
+						{
+							"key": "ahorro",
+							"value": "{{ahorro_var}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "casoNegocio3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"const sueldo        =   pm.environment.get(\"sueldo_var\");",
+							"const ahorro        =   pm.environment.get(\"ahorro_var\");",
+							"const dxcEsperado   =   pm.environment.get(\"dxcEsperado\");",
+							"const imptoEsperado =   pm.environment.get(\"imptoEsperado\");",
+							"const saldoEsperado =   pm.environment.get(\"saldoEsperado\");",
+							"",
+							"    pm.test(\"0.-Status code es 200\", () => {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"",
+							"    pm.test(\"1.-Tiempo de respuesta: is less than 1500ms\", () => {",
+							"        pm.expect(pm.response.responseTime).to.be.below(1500);",
+							"    });",
+							"",
+							"    pm.test(\"2.-Contiene informacion del diez por ciento(dxc)\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"dxc\");",
+							"    });",
+							"",
+							"    pm.test(\"3.-Contiene informacion del saldo\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"saldo\");",
+							"    });",
+							"",
+							"    pm.test(\"4.-Contiene informacion del impuesto\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"impuesto\");",
+							"    });    ",
+							"",
+							"    pm.test(\"5.-el 10 porciento del monto ahorrado:\"+ahorro+\" debe ser:\"+dxcEsperado, () => {",
+							"        pm.expect(pm.response.json().dxc).to.eql(dxcEsperado);",
+							"    });",
+							"",
+							"    pm.test(\"6.-el impuesto del sueldo:\"+sueldo+\" debe ser:\"+imptoEsperado, () => {",
+							"        pm.expect(pm.response.json().impuesto).to.eql(imptoEsperado);",
+							"    });",
+							"",
+							"    pm.test(\"7.-el saldo resultante, del sueldo:\"+sueldo+\" y ahorro de:\"+ahorro+\" debe ser:\"+saldoEsperado, () => {",
+							"        pm.expect(pm.response.json().saldo).to.eql(saldoEsperado);",
+							"    });",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\"https://mindicador.cl/api\", function (err, response) {",
+							"    responseJsonUf = response.json();",
+							"    uf = parseInt(responseJsonUf.uf.valor);",
+							"",
+							"    sueldo1          = 2500000;",
+							"    imptoEsperado1   = 364086;",
+							"",
+							"    ahorro1          = parseInt(uf*35+1);",
+							"    dxcEsperado1     = parseInt(uf*35);",
+							"    saldoEsperado1   = ahorro1 - dxcEsperado1;",
+							"",
+							"    pm.environment.set(\"sueldo_var\", sueldo1);",
+							"    pm.environment.set(\"ahorro_var\", ahorro1);",
+							"    pm.environment.set(\"dxcEsperado\", dxcEsperado1);",
+							"    pm.environment.set(\"imptoEsperado\", imptoEsperado1);",
+							"    pm.environment.set(\"saldoEsperado\", saldoEsperado1);",
+							"",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8889/rest/msdxc/dxc?sueldo={{sueldo_var}}&ahorro={{ahorro_var}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8889",
+					"path": [
+						"rest",
+						"msdxc",
+						"dxc"
+					],
+					"query": [
+						{
+							"key": "sueldo",
+							"value": "{{sueldo_var}}"
+						},
+						{
+							"key": "ahorro",
+							"value": "{{ahorro_var}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "casoNegocio4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"const sueldo        =   pm.environment.get(\"sueldo_var\");",
+							"const ahorro        =   pm.environment.get(\"ahorro_var\");",
+							"const dxcEsperado   =   pm.environment.get(\"dxcEsperado\");",
+							"const imptoEsperado =   pm.environment.get(\"imptoEsperado\");",
+							"const saldoEsperado =   pm.environment.get(\"saldoEsperado\");",
+							"",
+							"    pm.test(\"0.-Status code es 200\", () => {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"",
+							"    pm.test(\"1.-Tiempo de respuesta: is less than 1500ms\", () => {",
+							"        pm.expect(pm.response.responseTime).to.be.below(1500);",
+							"    });",
+							"",
+							"    pm.test(\"2.-Contiene informacion del diez por ciento(dxc)\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"dxc\");",
+							"    });",
+							"",
+							"    pm.test(\"3.-Contiene informacion del saldo\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"saldo\");",
+							"    });",
+							"",
+							"    pm.test(\"4.-Contiene informacion del impuesto\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"impuesto\");",
+							"    });    ",
+							"",
+							"    pm.test(\"5.-el 10 porciento del monto ahorrado:\"+ahorro+\" debe ser:\"+dxcEsperado, () => {",
+							"        pm.expect(pm.response.json().dxc).to.eql(dxcEsperado);",
+							"    });",
+							"",
+							"    pm.test(\"6.-el impuesto del sueldo:\"+sueldo+\" debe ser:\"+imptoEsperado, () => {",
+							"        pm.expect(pm.response.json().impuesto).to.eql(imptoEsperado);",
+							"    });",
+							"",
+							"    pm.test(\"7.-el saldo resultante, del sueldo:\"+sueldo+\" y ahorro de:\"+ahorro+\" debe ser:\"+saldoEsperado, () => {",
+							"        pm.expect(pm.response.json().saldo).to.eql(saldoEsperado);",
+							"    });",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\"https://mindicador.cl/api\", function (err, response) {",
+							"    responseJsonUf = response.json();",
+							"    uf = parseInt(responseJsonUf.uf.valor);",
+							"",
+							"    sueldo1          = 3000000;",
+							"    imptoEsperado1   = 612396;",
+							"",
+							"    ahorro1          = parseInt(uf*35*10);",
+							"    dxcEsperado1     = parseInt(uf*35);",
+							"    saldoEsperado1   = ahorro1 - dxcEsperado1;",
+							"",
+							"    pm.environment.set(\"sueldo_var\", sueldo1);",
+							"    pm.environment.set(\"ahorro_var\", ahorro1);",
+							"    pm.environment.set(\"dxcEsperado\", dxcEsperado1);",
+							"    pm.environment.set(\"imptoEsperado\", imptoEsperado1);",
+							"    pm.environment.set(\"saldoEsperado\", saldoEsperado1);",
+							"",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8889/rest/msdxc/dxc?sueldo={{sueldo_var}}&ahorro={{ahorro_var}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8889",
+					"path": [
+						"rest",
+						"msdxc",
+						"dxc"
+					],
+					"query": [
+						{
+							"key": "sueldo",
+							"value": "{{sueldo_var}}"
+						},
+						{
+							"key": "ahorro",
+							"value": "{{ahorro_var}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "casoNegocio5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"const sueldo        =   pm.environment.get(\"sueldo_var\");",
+							"const ahorro        =   pm.environment.get(\"ahorro_var\");",
+							"const dxcEsperado   =   pm.environment.get(\"dxcEsperado\");",
+							"const imptoEsperado =   pm.environment.get(\"imptoEsperado\");",
+							"const saldoEsperado =   pm.environment.get(\"saldoEsperado\");",
+							"",
+							"    pm.test(\"0.-Status code es 200\", () => {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"",
+							"    pm.test(\"1.-Tiempo de respuesta: is less than 1500ms\", () => {",
+							"        pm.expect(pm.response.responseTime).to.be.below(1500);",
+							"    });",
+							"",
+							"    pm.test(\"2.-Contiene informacion del diez por ciento(dxc)\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"dxc\");",
+							"    });",
+							"",
+							"    pm.test(\"3.-Contiene informacion del saldo\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"saldo\");",
+							"    });",
+							"",
+							"    pm.test(\"4.-Contiene informacion del impuesto\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"impuesto\");",
+							"    });    ",
+							"",
+							"    pm.test(\"5.-el 10 porciento del monto ahorrado:\"+ahorro+\" debe ser:\"+dxcEsperado, () => {",
+							"        pm.expect(pm.response.json().dxc).to.eql(dxcEsperado);",
+							"    });",
+							"",
+							"    pm.test(\"6.-el impuesto del sueldo:\"+sueldo+\" debe ser:\"+imptoEsperado, () => {",
+							"        pm.expect(pm.response.json().impuesto).to.eql(imptoEsperado);",
+							"    });",
+							"",
+							"    pm.test(\"7.-el saldo resultante, del sueldo:\"+sueldo+\" y ahorro de:\"+ahorro+\" debe ser:\"+saldoEsperado, () => {",
+							"        pm.expect(pm.response.json().saldo).to.eql(saldoEsperado);",
+							"    });",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\"https://mindicador.cl/api\", function (err, response) {",
+							"    responseJsonUf = response.json();",
+							"    uf = parseInt(responseJsonUf.uf.valor);",
+							"",
+							"    sueldo1          = 4000000;",
+							"    imptoEsperado1   = 980357;",
+							"",
+							"    ahorro1          = parseInt(uf * 35 * 10 + 1000000);",
+							"    dxcEsperado1     = parseInt((uf * 35 * 10 + 1000000) * 0.1);",
+							"    saldoEsperado1   = ahorro1 - dxcEsperado1;",
+							"",
+							"    pm.environment.set(\"sueldo_var\", sueldo1);",
+							"    pm.environment.set(\"ahorro_var\", ahorro1);",
+							"    pm.environment.set(\"dxcEsperado\", dxcEsperado1);",
+							"    pm.environment.set(\"imptoEsperado\", imptoEsperado1);",
+							"    pm.environment.set(\"saldoEsperado\", saldoEsperado1);",
+							"",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8889/rest/msdxc/dxc?sueldo={{sueldo_var}}&ahorro={{ahorro_var}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8889",
+					"path": [
+						"rest",
+						"msdxc",
+						"dxc"
+					],
+					"query": [
+						{
+							"key": "sueldo",
+							"value": "{{sueldo_var}}"
+						},
+						{
+							"key": "ahorro",
+							"value": "{{ahorro_var}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "casoNegocio6",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"const sueldo        =   pm.environment.get(\"sueldo_var\");",
+							"const ahorro        =   pm.environment.get(\"ahorro_var\");",
+							"const dxcEsperado   =   pm.environment.get(\"dxcEsperado\");",
+							"const imptoEsperado =   pm.environment.get(\"imptoEsperado\");",
+							"const saldoEsperado =   pm.environment.get(\"saldoEsperado\");",
+							"",
+							"    pm.test(\"0.-Status code es 200\", () => {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"",
+							"    pm.test(\"1.-Tiempo de respuesta: is less than 1500ms\", () => {",
+							"        pm.expect(pm.response.responseTime).to.be.below(1500);",
+							"    });",
+							"",
+							"    pm.test(\"2.-Contiene informacion del diez por ciento(dxc)\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"dxc\");",
+							"    });",
+							"",
+							"    pm.test(\"3.-Contiene informacion del saldo\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"saldo\");",
+							"    });",
+							"",
+							"    pm.test(\"4.-Contiene informacion del impuesto\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"impuesto\");",
+							"    });    ",
+							"",
+							"    pm.test(\"5.-el 10 porciento del monto ahorrado:\"+ahorro+\" debe ser:\"+dxcEsperado, () => {",
+							"        pm.expect(pm.response.json().dxc).to.eql(dxcEsperado);",
+							"    });",
+							"",
+							"    pm.test(\"6.-el impuesto del sueldo:\"+sueldo+\" debe ser:\"+imptoEsperado, () => {",
+							"        pm.expect(pm.response.json().impuesto).to.eql(imptoEsperado);",
+							"    });",
+							"",
+							"    pm.test(\"7.-el saldo resultante, del sueldo:\"+sueldo+\" y ahorro de:\"+ahorro+\" debe ser:\"+saldoEsperado, () => {",
+							"        pm.expect(pm.response.json().saldo).to.eql(saldoEsperado);",
+							"    });",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\"https://mindicador.cl/api\", function (err, response) {",
+							"    responseJsonUf = response.json();",
+							"    uf = parseInt(responseJsonUf.uf.valor);",
+							"",
+							"    sueldo1          = 5000000;",
+							"    imptoEsperado1   = 1294052;",
+							"",
+							"    ahorro1          = parseInt(uf * 150 * 10);",
+							"    dxcEsperado1     = parseInt(uf * 150);",
+							"    saldoEsperado1   = ahorro1 - dxcEsperado1;",
+							"",
+							"    pm.environment.set(\"sueldo_var\", sueldo1);",
+							"    pm.environment.set(\"ahorro_var\", ahorro1);",
+							"    pm.environment.set(\"dxcEsperado\", dxcEsperado1);",
+							"    pm.environment.set(\"imptoEsperado\", imptoEsperado1);",
+							"    pm.environment.set(\"saldoEsperado\", saldoEsperado1);",
+							"",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8889/rest/msdxc/dxc?sueldo={{sueldo_var}}&ahorro={{ahorro_var}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8889",
+					"path": [
+						"rest",
+						"msdxc",
+						"dxc"
+					],
+					"query": [
+						{
+							"key": "sueldo",
+							"value": "{{sueldo_var}}"
+						},
+						{
+							"key": "ahorro",
+							"value": "{{ahorro_var}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "casoNegocio7",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"const sueldo        =   pm.environment.get(\"sueldo_var\");",
+							"const ahorro        =   pm.environment.get(\"ahorro_var\");",
+							"const dxcEsperado   =   pm.environment.get(\"dxcEsperado\");",
+							"const imptoEsperado =   pm.environment.get(\"imptoEsperado\");",
+							"const saldoEsperado =   pm.environment.get(\"saldoEsperado\");",
+							"",
+							"    pm.test(\"0.-Status code es 200\", () => {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"",
+							"    pm.test(\"1.-Tiempo de respuesta: is less than 1500ms\", () => {",
+							"        pm.expect(pm.response.responseTime).to.be.below(1500);",
+							"    });",
+							"",
+							"    pm.test(\"2.-Contiene informacion del diez por ciento(dxc)\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"dxc\");",
+							"    });",
+							"",
+							"    pm.test(\"3.-Contiene informacion del saldo\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"saldo\");",
+							"    });",
+							"",
+							"    pm.test(\"4.-Contiene informacion del impuesto\", () => {",
+							"        pm.expect(pm.response.text()).to.include(\"impuesto\");",
+							"    });    ",
+							"",
+							"    pm.test(\"5.-el 10 porciento del monto ahorrado:\"+ahorro+\" debe ser:\"+dxcEsperado, () => {",
+							"        pm.expect(pm.response.json().dxc).to.eql(dxcEsperado);",
+							"    });",
+							"",
+							"    pm.test(\"6.-el impuesto del sueldo:\"+sueldo+\" debe ser:\"+imptoEsperado, () => {",
+							"        pm.expect(pm.response.json().impuesto).to.eql(imptoEsperado);",
+							"    });",
+							"",
+							"    pm.test(\"7.-el saldo resultante, del sueldo:\"+sueldo+\" y ahorro de:\"+ahorro+\" debe ser:\"+saldoEsperado, () => {",
+							"        pm.expect(pm.response.json().saldo).to.eql(saldoEsperado);",
+							"    });",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\"https://mindicador.cl/api\", function (err, response) {",
+							"    responseJsonUf = response.json();",
+							"    uf = parseInt(responseJsonUf.uf.valor);",
+							"",
+							"    sueldo1          = 6000000;",
+							"    imptoEsperado1   = 1491042;",
+							"",
+							"    ahorro1          = parseInt(uf * 150 * 10 + 1);",
+							"    dxcEsperado1     = parseInt(uf * 150);",
+							"    saldoEsperado1   = ahorro1 - dxcEsperado1;",
+							"",
+							"    pm.environment.set(\"sueldo_var\", sueldo1);",
+							"    pm.environment.set(\"ahorro_var\", ahorro1);",
+							"    pm.environment.set(\"dxcEsperado\", dxcEsperado1);",
+							"    pm.environment.set(\"imptoEsperado\", imptoEsperado1);",
+							"    pm.environment.set(\"saldoEsperado\", saldoEsperado1);",
+							"",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8889/rest/msdxc/dxc?sueldo={{sueldo_var}}&ahorro={{ahorro_var}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8889",
+					"path": [
+						"rest",
+						"msdxc",
+						"dxc"
+					],
+					"query": [
+						{
+							"key": "sueldo",
+							"value": "{{sueldo_var}}"
+						},
+						{
+							"key": "ahorro",
+							"value": "{{ahorro_var}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "sueldo",
+			"value": "msdxc"
+		},
+		{
+			"key": "sueldo_var",
+			"value": "sueldo_var"
+		},
+		{
+			"key": "ahorro_var",
+			"value": "ahorro_var"
+		},
+		{
+			"key": "endpoint",
+			"value": "endpoint"
+		}
+	]
+}
