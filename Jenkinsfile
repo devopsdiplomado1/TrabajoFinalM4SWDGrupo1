@@ -35,6 +35,12 @@ pipeline {
             }
         } 
 
+        stage('test Selenium') {
+            steps {                
+                sh 'java -jar seleniumJar/mavenDevopsSelenium-1.0-SNAPSHOT.jar'
+            }
+        }        
+
 
     }
 }
