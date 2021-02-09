@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Jar Code') {
             steps {                
-                sh 'mvn clean package -e'
+                sh 'mvn clean package -e -Dmaven.test.skip=true'
             }
         }
         stage('test Newman') {
@@ -36,8 +36,11 @@ pipeline {
         } 
 
         stage('test Selenium') {
-            steps {                
-                sh 'nohup java -jar seleniumJar/mavenDevopsSelenium-1.0-SNAPSHOT.jar'
+            steps {  
+                sh 'rm -rf TrabajoFinalM4SWDGrupo1'
+                sh 'git clone https://github.com/devopsdiplomado1/TrabajoFinalM4SWDGrupo1_Selenium.git'
+                sh 'mvn clean compile -e'
+                sh 'mvn clean test -e'
             }
         }        
 
