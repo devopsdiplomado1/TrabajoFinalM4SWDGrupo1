@@ -33,12 +33,6 @@ pipeline {
                 sleep 20 
             }
         } 
-
-        stage('test Selenium') {
-            steps {                
-                sh 'nohup java -jar seleniumJar/mavenDevopsSelenium-1.0-SNAPSHOT.jar'
-            }
-        }         
         stage('test Selenium') {
             steps {                
                 git 'https://github.com/devopsdiplomado1/TrabajoFinalM4SWDGrupo1_Selenium.git'
