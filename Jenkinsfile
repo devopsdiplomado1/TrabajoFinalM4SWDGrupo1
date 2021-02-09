@@ -21,11 +21,19 @@ pipeline {
                 sh 'mvn clean package -e'
             }
         }
+        stage('test Newman') {
+            steps {                
+                sh 'newman run postman/taller_modulo_4_grupo1.postman_collectionlll.json'
+            }
+        }
+        
         stage('Run Code') {
             steps {                
                 sh 'nohup mvn spring-boot:run -Dserver.port=8889 &'
                 sleep 20 
             }
-        }        
+        } 
+
+
     }
 }
