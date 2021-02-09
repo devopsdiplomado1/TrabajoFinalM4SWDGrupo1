@@ -1,6 +1,11 @@
 pipeline {
     agent any
-    stages {
+    stages {        
+        stage('Download Code Code') {
+            steps {
+                sh 'git clone https://github.com/devopsdiplomado1/TrabajoFinalM4SWDGrupo1.git'
+            }
+        }
         stage('Compile Code') {
             steps {
                 sh 'mvn clean compile -e'
@@ -21,11 +26,6 @@ pipeline {
                 sh 'nohup mvn spring-boot:run -Dserver.port=8889 &'
                 sleep 20 
             }
-        }  
-        stage('Testing Application') {
-            steps {
-                sh 'curl -X GET "http://localhost:8081/rest/mscovid/test?msg=testing"'
-            }
-        }          
+        }        
     }
 }
