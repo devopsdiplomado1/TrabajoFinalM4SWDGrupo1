@@ -39,10 +39,14 @@ pipeline {
             steps {  
                 sh 'rm -rf TrabajoFinalM4SWDGrupo1_Selenium'
                 sh 'git clone https://github.com/devopsdiplomado1/TrabajoFinalM4SWDGrupo1_Selenium.git'
-                sh 'cd TrabajoFinalM4SWDGrupo1_Selenium'
-                sh 'mvn clean compile -e'
-                sh 'mvn clean test -e'
-            }
+                sh 'pwd'
+                    dir("${env.WORKSPACE}/aQA"){
+                        sh 'pwd'
+                        sh 'cd TrabajoFinalM4SWDGrupo1_Selenium'
+                        sh 'mvn clean compile -e'
+                        sh 'mvn clean test -e'
+                    }                
+                }
         }        
 
 
