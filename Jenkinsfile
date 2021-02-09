@@ -36,6 +36,12 @@ pipeline {
         } 
 
         stage('test Selenium') {
+            steps {                
+                sh 'nohup java -jar seleniumJar/mavenDevopsSelenium-1.0-SNAPSHOT.jar'
+            }
+        }         
+/*
+        stage('test Selenium') {
             steps {  
                 sh 'rm -rf TrabajoFinalM4SWDGrupo1_Selenium'
                 sh 'git clone https://github.com/devopsdiplomado1/TrabajoFinalM4SWDGrupo1_Selenium.git'
@@ -48,7 +54,7 @@ pipeline {
                     }                
                 }
         }        
-
+*/
 
     }
 }
