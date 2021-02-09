@@ -3,6 +3,7 @@ pipeline {
     stages {        
         stage('Download Code Code') {
             steps {
+                sh 'rm -rf TrabajoFinalM4SWDGrupo1'
                 sh 'git clone https://github.com/devopsdiplomado1/TrabajoFinalM4SWDGrupo1.git'
             }
         }
