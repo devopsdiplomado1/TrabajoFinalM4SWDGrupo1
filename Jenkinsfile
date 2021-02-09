@@ -3,8 +3,7 @@ pipeline {
     stages {        
         stage('Download Code Code') {
             steps {
-                sh 'rm -rf TrabajoFinalM4SWDGrupo1'
-                sh 'git clone https://github.com/devopsdiplomado1/TrabajoFinalM4SWDGrupo1.git'
+                git branch: 'main', url: 'https://github.com/devopsdiplomado1/TrabajoFinalM4SWDGrupo1.git'
             }
         }
         stage('Compile Code') {
@@ -40,21 +39,12 @@ pipeline {
                 sh 'nohup java -jar seleniumJar/mavenDevopsSelenium-1.0-SNAPSHOT.jar'
             }
         }         
-/*
         stage('test Selenium') {
-            steps {  
-                sh 'rm -rf TrabajoFinalM4SWDGrupo1_Selenium'
-                sh 'git clone https://github.com/devopsdiplomado1/TrabajoFinalM4SWDGrupo1_Selenium.git'
-                sh 'pwd'
-                    dir("${env.WORKSPACE}/"){
-                        sh 'pwd'
-                        sh 'cd TrabajoFinalM4SWDGrupo1_Selenium'
-                        sh 'mvn clean compile -e'
-                        sh 'mvn clean test -e'
-                    }                
-                }
-        }        
-*/
+            steps {                
+                git 'https://github.com/devopsdiplomado1/TrabajoFinalM4SWDGrupo1_Selenium.git'
+                sh 'mvn clean test -e'
+            }
+        }
 
     }
 }
